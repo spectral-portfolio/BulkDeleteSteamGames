@@ -6,32 +6,39 @@ from bs4 import BeautifulSoup
 import time
 
 
-driver = start_firefox()
-go_to(r'https://help.steampowered.com/en/wizard/Login?redir=%2Fen%2Fwizard%2FHelpWithGame')
+
 
 
 
 def login():
-    username = input("steam username : ")
-    password = input("password : ")
-    write(username, into="Steam account name")
-    write(password, into="Password")
-    click("Sign in")
-    twofactorcode = input("two factorcode : ")
-    write(twofactorcode, into="enter your code here")
-    click("submit")
+    try:
+        driver = start_firefox()
+        go_to(r'https://help.steampowered.com/en/wizard/Login?redir=%2Fen%2Fwizard%2FHelpWithGame')
+        username = input(" steam username : ")
+        password = input(" password : ")
+        write(username, into="Steam account name")
+        write(password, into="Password")
+        click("Sign in")
+        twofactorcode = input("two factorcode : ")
+        write(twofactorcode, into="enter your code here")
+        click("submit")
+    except:
+        print("something went wrong please double check your login details")
+        login()
+
+
+ 
     
 def delete_game():
     gf = open("games.txt","r")
     game = gf.readline()
     while (game != ""):
     
-        write(game, into="SEARCH")
-        time.sleep(3)
+        
         try: 
-            link =driver.find_element_by_css_selector("div.help_search_results_apps:nth-child(1) > a:nth-child(2)")
-            link.click()
-            click("I want to permanently remove this game from my account")
+            go_to(r"https://help.steampowered.com/en/wizard/HelpWithGameIssue/?appid="+game+"&issueid=123&transid=2931262546184791180&line_item=2931262546184791208")
+            
+            
             html = driver.page_source
             soup = BeautifulSoup(html,"lxml")
             name = soup.find("div", {"class": "game_name"})
@@ -43,12 +50,10 @@ def delete_game():
             if B=="n":
                 go_to(r'https://help.steampowered.com/en/wizard/Login?redir=%2Fen%2Fwizard%2FHelpWithGame')
                 game = gf.readline()
-                
+                break
             else:
                 click("Ok, remove the listed games from my account permanently")
-                click('Return to Steam Support home')
-                click('Games, Software, etc.')
-
+                
                 
 
             
@@ -60,5 +65,4 @@ time.sleep(1)
 delete_game()
 
     
-
 
