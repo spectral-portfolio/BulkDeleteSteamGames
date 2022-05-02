@@ -10,7 +10,7 @@ just do $ pip install (Dependency)
 **Running the script**
 
 1. Run $ git clone https://github.com/fadihajjej/BulkDeleteSteamGames 
-2. Copy paste the games you wich to delete permenantly from your steam account in the games.txt each game in one line
+2. Copy paste APPIDs of the games you want to delete (you can find APPIDs in steam.db https://steamdb.info/watching)
 3. Open terminal/cmd
-4. Point to where you downloaded the script *example : $ cd Downloads/BulkDeleteSteamGames*
-5. Run the script with $ python script
+4. Point to where you downloaded the script *example : *cd Downloads/BulkDeleteSteamGames*
+5. Run the script with *python script*
